@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dekripsi - Aescrypt Aplikasi Enkripsi dengan Algoritma AES</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="description"
+      content="Aescrypt adalah aplikasi untuk mengenkripsi dan mendekripsi teks dengan algoritma AES."
+    />
+    <meta
+      name="keywords"
+      content="aes, aes encryption, aes decryption, aes encrypt,"
+    />
+    <meta name="author" content="Syauqizaidan Khairan Khalaf" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.tailwindcss.com/?plugins=forms"></script>
+    <style>
+      :root {
+        font-family: "Inter", sans-serif;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: "Inter var", sans-serif;
+        }
+      }
+      body {
+        width: 100%;
+        height: 100%;
+      }
+      .modal-glass {
+        backdrop-filter: blur(9px) saturate(140%);
+        -webkit-backdrop-filter: blur(9px) saturate(140%);
+        background-color: rgba(25, 35, 49, 0);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.125);
+      }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+  </head>
+  <body>
+    <div class="relative overflow-hidden isolate bg-gray-900 h-100">
+      <svg
+        class="absolute inset-0 -z-10 h-full w-full stroke-white/10 [mask-image:radial-gradient(100%_100%_at_top_right,white,transparent)]"
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="983e3e4c-de6d-4c3f-8d64-b9761d1534cc"
+            width="200"
+            height="200"
+            x="50%"
+            y="-1"
+            patternUnits="userSpaceOnUse"
+          >
+            <path d="M.5 200V.5H200" fill="none" />
+          </pattern>
+        </defs>
+        <svg x="50%" y="-1" class="overflow-visible fill-gray-800/20">
+          <path
+            d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z"
+            stroke-width="0"
+          />
+        </svg>
+        <rect
+          width="100%"
+          height="100%"
+          stroke-width="0"
+          fill="url(#983e3e4c-de6d-4c3f-8d64-b9761d1534cc)"
+        />
+      </svg>
+      <svg
+        viewBox="0 0 1108 632"
+        aria-hidden="true"
+        class="absolute top-10 left-[calc(50%-4rem)] -z-10 w-[69.25rem] max-w-none transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]"
+      >
+        <path
+          fill="url(#175c433f-44f6-4d59-93f0-c5c51ad5566d)"
+          fill-opacity=".2"
+          d="M235.233 402.609 57.541 321.573.83 631.05l234.404-228.441 320.018 145.945c-65.036-115.261-134.286-322.756 109.01-230.655C968.382 433.026 1031 651.247 1092.23 459.36c48.98-153.51-34.51-321.107-82.37-385.717L810.952 324.222 648.261.088 235.233 402.609Z"
+        />
+        <defs>
+          <linearGradient
+            id="175c433f-44f6-4d59-93f0-c5c51ad5566d"
+            x1="1220.59"
+            x2="-85.053"
+            y1="432.766"
+            y2="638.714"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#4F46E5"></stop>
+            <stop offset="1" stop-color="#80CAFF"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="py-4">
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+          <h1
+            class="mt-10 text-center text-4xl font-bold tracking-tight text-white sm:text-6xl"
+          >
+            🔑 Dekripsi Pesan Anda
+          </h1>
+          <p
+            class="mt-6 text-justify sm:text-center text-sm sm:text-md leading-snug md:text-lg leading-8 text-gray-300"
+          >
+            Dekripsi pesan anda dibawah ini dengan mengisinya dengan ciphertext
+            yang anda terima dari orang yang mengenkripsinya, masukkan password
+            juga jika pengirim menggunakan password untuk enkripsi. Memiliki
+            pesan yang ingin dienkripsi?
+            <a
+              href="encrypt.html"
+              class="font-medium text-indigo-600 hover:text-indigo-500"
+              >Klik disini <span aria-hidden="true"> &rarr;</span></a
+            >
+          </p>
+        </div>
+        <div class="relative overflow-hidden pt-14">
+          <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <textarea
+              rows="20"
+              name="comment"
+              id="plaintext"
+              class="block bg-[#192331] w-full text-white rounded-md border-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-md"
+            ></textarea>
+            <div class="relative" aria-hidden="true">
+              <div
+                class="absolute -inset-x-20 bottom-0 bg-gradient-to-t from-gray-900 pt-[7%]"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="max-w-7xl px-8 mt-12 mb-8 mx-auto flex flex flex-col sm:flex-row justify-center items-center gap-x-3 gap-y-3"
+        >
+          <div class="w-full sm:w-auto">
+            <label for="password" class="sr-only">Password Enkripsi</label>
+            <input
+              type="text"
+              id="password"
+              class="px-4 py-2.5 h-100 w-full sm:w-48 rounded-md bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-indigo-600 focus:border-primary-500 shadow-sm-light sm:text-sm"
+              placeholder="Password Enkripsi"
+            />
+          </div>
+          <button
+            onclick="decrypt()"
+            class="rounded-md bg-indigo-500 w-full sm:w-48 px-3.5 py-1.5 text-base font-semibold leading-7 text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-400"
+          >
+            Dekripsi Pesan
+          </button>
+        </div>
+
+        <!-- Modal Code -->
+        <div
+          id="myModal"
+          class="hidden fixed inset-0 bg-gray-900 bg-opacity-70"
+        >
+          <div class="fixed inset-0 z-10 flex items-center justify-center">
+            <!-- Modal Panel Code -->
+            <div
+              class="modal-glass text-white rounded-lg px-4 pt-5 pb-4 text-center sm:p-6 sm:w-full sm:max-w-lg"
+            >
+              <!-- Modal Content -->
+              <div>
+                <h3
+                  class="text-lg font-medium leading-6 text-white"
+                  id="modal-title"
+                >
+                  Hasil Dekripsi Pesan
+                </h3>
+                <div class="mt-6">
+                  <div>
+                    <div>
+                      <textarea
+                        rows="4"
+                        name="comment"
+                        id="ciphertext"
+                        readonly
+                        class="block w-full bg-[#192331] rounded-md border-gray-700 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-md"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Modal Actions -->
+              <div
+                class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3"
+              >
+                <button
+                  type="button"
+                  onclick="copyText()"
+                  class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-2 sm:text-sm"
+                >
+                  Copy Hasil Dekripsi
+                </button>
+                <button
+                  type="button"
+                  onclick="closeModal()"
+                  class="mt-3 inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:col-start-1 sm:mt-0 sm:text-sm"
+                >
+                  Tutup
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function decrypt() {
+        var ciphertext = document.getElementById("plaintext").value;
+        var decryptionKey = document.getElementById("password").value;
+
+        var decrypted = CryptoJS.AES.decrypt(ciphertext, decryptionKey, {
+          mode: CryptoJS.mode.ECB,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+
+        var decryptedText = decrypted.toString(CryptoJS.enc.Utf8);
+        document.getElementById("ciphertext").value = decryptedText;
+        openModal();
+      }
+
+      function openModal() {
+        var modal = document.getElementById("myModal");
+        modal.classList.remove("hidden");
+      }
+
+      function closeModal() {
+        var modal = document.getElementById("myModal");
+        modal.classList.add("hidden");
+      }
+
+      function copyText() {
+        // Mendapatkan referensi ke textarea
+        var textarea = document.getElementById("ciphertext");
+
+        // Menyalin teks dari textarea
+        textarea.select();
+        document.execCommand("copy");
+
+        // Mengubah teks pada tombol menjadi "Berhasil dicopy"
+        var button = document.getElementById("copyButton");
+        button.innerHTML = "Berhasil dicopy";
+      }
+    </script>
+
+    <script>
+      function typeWriter(text, i, callback) {
+        if (i < text.length) {
+          document
+            .getElementById("plaintext")
+            .setAttribute("placeholder", text.substring(0, i + 1));
+          setTimeout(function () {
+            typeWriter(text, i + 1, callback);
+          }, 2); // Kecepatan pengetikan
+        } else {
+          callback();
+        }
+      }
+
+      function encryptText(text, i, encryptedText, callback) {
+        if (i < text.length) {
+          if (text[i] !== " ") {
+            encryptedText += getRandomCharacter();
+          } else {
+            encryptedText += " ";
+          }
+          document
+            .getElementById("plaintext")
+            .setAttribute("placeholder", encryptedText);
+          setTimeout(function () {
+            encryptText(text, i + 1, encryptedText, callback);
+          }, 10); // Kecepatan animasi enkripsi
+        } else {
+          callback();
+        }
+      }
+
+      function getRandomCharacter() {
+        const characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?`~";
+        return characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+
+      window.onload = function () {
+        const textarea = document.getElementById("plaintext");
+        const placeholderText =
+          "Tolong aku sedang dikepung oleh musuh, aku berusaha untuk melawan tapi aku tidak bisa sendirian. Tolong keluar dari markas sekarang juga karena musuh sudah tau titik koordinat markas kita, aku sedang dalam perjalanan untuk menghetikan rudal yang menuju markas kita. Aku butuh bantuan di koordinat ini, tolong kirimkan Air support secepatnya.";
+
+        encryptText(placeholderText, 0, "", function () {
+          typeWriter(placeholderText, 0, function () {
+            // Animasi enkripsi dan pengetikan selesai
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
