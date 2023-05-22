@@ -13,12 +13,12 @@
 <p></p>
 
 <p align="center">
-	<img src="https://img.shields.io/github/issues/syauqi/aescrypt?style=flat-square">
-	<img src="https://img.shields.io/github/stars/syauqi/aescrypt?style=flat-square"> 
-	<img src="https://img.shields.io/github/forks/syauqi/aescrypt?style=flat-square">
-	<img src="https://img.shields.io/github/license/syauqi/aescrypt?style=flat-square">
-	<img src="https://img.shields.io/badge/maintained%3F-no-red.svg?style=flat-square">
-	<img src="https://img.shields.io/github/followers/syauqi.svg?style=flat-square&label=followers">
+<img src="https://img.shields.io/github/issues/syauqi/aescrypt?style=flat">
+<img src="https://img.shields.io/github/stars/syauqi/aescrypt?style=flat"> 
+<img src="https://img.shields.io/github/forks/syauqi/aescrypt?style=flat">
+<img src="https://img.shields.io/github/license/syauqi/aescrypt?style=flat">
+<img src="https://img.shields.io/badge/maintained%3F-no-red.svg?style=flat">
+<img src="https://img.shields.io/github/followers/syauqi.svg?style=flat&label=followers">
 </p>
 
 <p align="center">
